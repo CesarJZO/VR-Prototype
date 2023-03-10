@@ -7,7 +7,7 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] private Throwable throwable;
 
-    public void Hola() {
-        BallManager.Instance
+    public void ResetBallFromManager() {
+        BallManager.Instance.ResetBall(gameObject);
     }
 }

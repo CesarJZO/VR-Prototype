@@ -22,9 +22,9 @@ public class BallManager : MonoBehaviour
         _currentBall = Instantiate(ballPrefab, ballOriginPoint.position, Quaternion.identity);
     }
 
-    public void ResetBall()
+    public void ResetBall(GameObject ball)
     {
-        Destroy(_currentBall);
+        Destroy(ball);
         InstantiateBall();
     }
 

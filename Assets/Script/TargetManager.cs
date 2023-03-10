@@ -40,7 +40,7 @@ namespace Unity.Template.VR.Script
             {
                 foreach (var target in targets)
                     target.Hit -= OnTargetHit;
-                    
+
                 targets = new Target[targetsAmount];
                 InstantiateTargets();
             }
@@ -55,7 +55,5 @@ namespace Unity.Template.VR.Script
             float sizeZ = Mathf.Abs(pointA.position.z - pointB.position.z);
             Gizmos.DrawWireCube(center, new Vector3(sizeX, sizeY, sizeZ)); 
         }
-
-
     }
 }
