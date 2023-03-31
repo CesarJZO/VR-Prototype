@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,7 @@ public class BallManager : MonoBehaviour
     [SerializeField] private Transform ballOriginPoint;
 
     [SerializeField] private GameObject ballPrefab;
-
-    private GameObject _currentBall;
-
+    
     private void Awake()
     {
         Instance = this;
@@ -19,7 +18,45 @@ public class BallManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _currentBall = Instantiate(ballPrefab, ballOriginPoint.position, Quaternion.identity);
+        Instantiate(ballPrefab, ballOriginPoint.position, Quaternion.identity);
+    }
+
+    public void ResetBall(GameObject ball)
+    {
+        Destroy(ball);
+        InstantiateBall();
+    }
+
+    private void InstantiateBall()
+    {
+        StartCoroutine(InstantiateBallCoroutine());
+        {
+            yield return new WaitForSeconds(3f);
+            Instantiate(ballPrefab, ballOriginPoint.position, Quaternion.identity);
+        }
+    }
+}
+=======
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BallManager : MonoBehaviour
+{
+    public static BallManager Instance { get; private set; }
+    [SerializeField] private Transform ballOriginPoint;
+
+    [SerializeField] private GameObject ballPrefab;
+    
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Instantiate(ballPrefab, ballOriginPoint.position, Quaternion.identity);
     }
 
     public void ResetBall(GameObject ball)
@@ -38,3 +75,4 @@ public class BallManager : MonoBehaviour
         }
     }
 }
+>>>>>>> b000295c51912edf5bea5828bb8492ee79425d10
