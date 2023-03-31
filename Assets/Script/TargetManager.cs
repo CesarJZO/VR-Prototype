@@ -4,18 +4,21 @@ namespace Unity.Template.VR.Script
 {
     public class TargetManager : MonoBehaviour
     {
+        public static TargetManager Instance { get; private set; }
         [SerializeField] private int targetsAmount;
         [SerializeField] private Transform pointA;
         [SerializeField] private Transform pointB;
-        [SerializeField] private Target targetPrefab;
-
-        public Target[] targets;
+        [SerializeField] private GameObject targetPrefab;
 
         private int _targetCount;
 
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         private void Start()
         {
-            targets = new Target[targetsAmount];
             InstantiateTargets();
             _targetCount = targetsAmount;
         }
@@ -27,21 +30,17 @@ namespace Unity.Template.VR.Script
                 float randomY = Random.Range(pointA.position.y, pointB.position.y);
                 float randomZ = Random.Range(pointA.position.z, pointB.position.z);
                 Vector3 targetPosition = new Vector3(randomX, randomY, randomZ);
-                var target = Instantiate(targetPrefab, targetPosition, Quaternion.identity);
-                targets[i] = target;
-                target.Hit += OnTargetHit;
+                GameObject target = Instantiate(targetPrefab, targetPosition, 
+                    Quaternion.Euler(90,0,0));
             }
         }
 
-        private void OnTargetHit()
+        public void OnTargetHit(GameObject target)
         {
             _targetCount--;
+            Destroy(target);
             if (_targetCount == 0)
             {
-                foreach (var target in targets)
-                    target.Hit -= OnTargetHit;
-
-                targets = new Target[targetsAmount];
                 InstantiateTargets();
             }
         }

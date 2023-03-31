@@ -8,9 +8,7 @@ public class BallManager : MonoBehaviour
     [SerializeField] private Transform ballOriginPoint;
 
     [SerializeField] private GameObject ballPrefab;
-
-    private GameObject _currentBall;
-
+    
     private void Awake()
     {
         Instance = this;
@@ -19,7 +17,7 @@ public class BallManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _currentBall = Instantiate(ballPrefab, ballOriginPoint.position, Quaternion.identity);
+        Instantiate(ballPrefab, ballOriginPoint.position, Quaternion.identity);
     }
 
     public void ResetBall(GameObject ball)
@@ -31,7 +29,6 @@ public class BallManager : MonoBehaviour
     private void InstantiateBall()
     {
         StartCoroutine(InstantiateBallCoroutine());
-        IEnumerator InstantiateBallCoroutine()
         {
             yield return new WaitForSeconds(3f);
             Instantiate(ballPrefab, ballOriginPoint.position, Quaternion.identity);

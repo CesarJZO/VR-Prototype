@@ -1,13 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Template.VR.Script;
 using UnityEngine;
-using Valve.VR.InteractionSystem;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private Throwable throwable;
-
-    public void ResetBallFromManager() {
+    [SerializeField] private LayerMask targetLayerMask;
+    
+    public void ResetBallFromManager()
+    {
+        // Cuando se suelta la bola
         BallManager.Instance.ResetBall(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == targetLayerMask)
+        {
+            GameObject target = collision.gameObject;
+            TargetManager.Instance.OnTargetHit(target);
+            Destroy(gameObject, 0.5f);
+        }
     }
 }
